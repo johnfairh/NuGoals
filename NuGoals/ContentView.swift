@@ -13,11 +13,11 @@ import Foundation
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext: ModelContext
 
-    @Query(sort: \.sortOrder) var allGoals: [Goal]
-    @Query(sort: \.sortOrder) var allAlarms: [Alarm]
-    @Query(sort: \.sortOrder) var allEpochs: [Epoch]
-    @Query(sort: \.dayStamp) var allNotes: [Note]
-    @Query(sort: \.sortOrder) var allIcons: [Icon]
+    @Query(sort: \.sortOrder) var allGoals: [CoreDataSchema.Goal]
+    @Query(sort: \.sortOrder) var allAlarms: [CoreDataSchema.Alarm]
+    @Query(sort: \.sortOrder) var allEpochs: [CoreDataSchema.Epoch]
+    @Query(sort: \.dayStamp) var allNotes: [CoreDataSchema.Note]
+    @Query(sort: \.sortOrder) var allIcons: [CoreDataSchema.Icon]
 
     @State var containerText: String = ""
 
@@ -58,7 +58,10 @@ struct ContentView: View {
             }
             List {
                 ForEach(allIcons) { icon in
-                    Text(icon.name + " \(icon.usingGoals.count) \(icon.usingAlarms.count)")
+                    HStack {
+                        Text(icon.name + " \(icon.usingGoals.count) \(icon.usingAlarms.count)")
+//                        Image(uiImage: UIImage(data: icon.imageData)!)
+                    }
                 }
             }
         }
@@ -70,3 +73,4 @@ struct ContentView: View {
     ContentView()
         .previewLayout(.sizeThatFits)
 }
+

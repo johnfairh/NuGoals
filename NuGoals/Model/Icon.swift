@@ -5,7 +5,6 @@
 
 import SwiftData
 import Foundation
-import UIKit
 
 @Model final public class Icon {
     var imageData: Data

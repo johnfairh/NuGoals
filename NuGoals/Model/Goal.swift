@@ -9,12 +9,12 @@ import SwiftData
 import struct Foundation.Date
 
 @Model
-class Goal {
-    var cdCompletionDate: Date
-    var cdCreationDate: Date
-    var cdCurrentSteps: Int32
-    var cdIsFav: Bool
-    var cdTotalSteps: Int32
+final class Goal {
+    @Attribute(originalName: "cdCompletionDate") var completionDate: Date
+    @Attribute(originalName: "cdCreationDate") var creationDate: Date
+    @Attribute(originalName: "cdCurrentSteps") private var _currentSteps: Int
+    @Attribute(originalName: "cdTotalSteps") private var _totalSteps: Int
+    @Attribute(originalName: "cdIsFav") var isFav: Bool
     var name: String
     var sectionOrder: String
     var sortOrder: Int64
@@ -24,11 +24,11 @@ class Goal {
     @Relationship(.cascade, inverse: \Note.goal) var notes: [Note]
 
     init() {
-        cdCompletionDate = .distantFuture
-        cdCreationDate = .now
-        cdCurrentSteps = 0
-        cdIsFav = false
-        cdTotalSteps = 0
+        completionDate = .distantFuture
+        creationDate = .now
+        _currentSteps = 0
+        _totalSteps = 0
+        isFav = false
         name = ""
         sectionOrder = "0"
         sortOrder = 0
@@ -36,4 +36,3 @@ class Goal {
         notes = []
     }
 }
-

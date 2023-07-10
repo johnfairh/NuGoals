@@ -6,7 +6,8 @@
 import struct Foundation.Date
 import SwiftData
 
-@Model final public class Alarm {
+@Model
+final public class Alarm {
     var cdNextActiveDate: Date
     var cdType: Int16
     var cdWeekDay: Int16

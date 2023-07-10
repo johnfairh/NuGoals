@@ -6,7 +6,8 @@
 import struct Foundation.Date
 import SwiftData
 
-@Model final public class Note {
+@Model
+final public class Note {
     var cdCreationDate: Date
     var dayStamp: String
     var goalStatus: String?

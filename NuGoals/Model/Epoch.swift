@@ -6,7 +6,8 @@
 import SwiftData
 import struct Foundation.Date
 
-@Model final public class Epoch {
+@Model
+final public class Epoch {
     var cdEndDate: Date
     var cdLongName: String
     var cdShortName: String
