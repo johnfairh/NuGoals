@@ -16,7 +16,6 @@ final class Goal {
     @Attribute(originalName: "cdTotalSteps") private var _totalSteps: Int
     @Attribute(originalName: "cdIsFav") var isFav: Bool
     var name: String
-    var sectionOrder: String
     var sortOrder: Int64
     var tag: String?
 
@@ -30,7 +29,6 @@ final class Goal {
         _totalSteps = 0
         isFav = false
         name = ""
-        sectionOrder = "0"
         sortOrder = 0
         tag = nil
         notes = []

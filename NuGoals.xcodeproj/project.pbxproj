@@ -13,6 +13,7 @@
 		02535B332A5581650045E890 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02535B322A5581650045E890 /* Note.swift */; };
 		02535B352A5584F30045E890 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02535B342A5584F30045E890 /* Icon.swift */; };
 		026E6FDD2A5C066200DF96EB /* CoreDataSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026E6FDC2A5C066200DF96EB /* CoreDataSchema.swift */; };
+		026E6FDF2A5C27AA00DF96EB /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026E6FDE2A5C27AA00DF96EB /* Prefs.swift */; };
 		02CE85DE2A499511003E3559 /* NuGoalsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CE85DD2A499511003E3559 /* NuGoalsApp.swift */; };
 		02CE85E02A499511003E3559 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CE85DF2A499511003E3559 /* ContentView.swift */; };
 		02CE85E22A499513003E3559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CE85E12A499513003E3559 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		02535B322A5581650045E890 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		02535B342A5584F30045E890 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		026E6FDC2A5C066200DF96EB /* CoreDataSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSchema.swift; sourceTree = "<group>"; };
+		026E6FDE2A5C27AA00DF96EB /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
 		02CE85DA2A499511003E3559 /* NuGoals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuGoals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02CE85DD2A499511003E3559 /* NuGoalsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuGoalsApp.swift; sourceTree = "<group>"; };
 		02CE85DF2A499511003E3559 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				02535B292A52DBB20045E890 /* NuGoals.entitlements */,
 				02CE85DD2A499511003E3559 /* NuGoalsApp.swift */,
+				026E6FDE2A5C27AA00DF96EB /* Prefs.swift */,
 				02535B2D2A52EE250045E890 /* Model */,
 				02535B2C2A52EBE20045E890 /* Database */,
 				02CE85DF2A499511003E3559 /* ContentView.swift */,
@@ -178,6 +181,7 @@
 			files = (
 				02CE85EC2A49982F003E3559 /* Goal.swift in Sources */,
 				02535B2F2A557A8D0045E890 /* Epoch.swift in Sources */,
+				026E6FDF2A5C27AA00DF96EB /* Prefs.swift in Sources */,
 				02535B332A5581650045E890 /* Note.swift in Sources */,
 				02CE85E02A499511003E3559 /* ContentView.swift in Sources */,
 				026E6FDD2A5C066200DF96EB /* CoreDataSchema.swift in Sources */,
