@@ -13,11 +13,11 @@ import Foundation
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext: ModelContext
 
-    @Query(sort: \.sortOrder) var allGoals: [CoreDataSchema.Goal]
-    @Query(sort: \.sortOrder) var allAlarms: [CoreDataSchema.Alarm]
-    @Query(sort: \.sortOrder) var allEpochs: [CoreDataSchema.Epoch]
-    @Query(sort: \.dayStamp) var allNotes: [CoreDataSchema.Note]
-    @Query(sort: \.sortOrder) var allIcons: [CoreDataSchema.Icon]
+    @Query(sort: \.sortOrder) var allGoals: [Goal]
+    @Query(sort: \.sortOrder) var allAlarms: [Alarm]
+    @Query(sort: \.sortOrder) var allEpochs: [Epoch]
+    @Query(sort: \.creationDate) var allNotes: [Note]
+    @Query(sort: \.sortOrder) var allIcons: [Icon]
 
     @State var containerText: String = ""
 
@@ -57,13 +57,16 @@ struct ContentView: View {
                 Text("Report")
             }
             List {
-                ForEach(allIcons) { icon in
-                    HStack {
-                        Text(icon.name + " \(icon.usingGoals.count) \(icon.usingAlarms.count)")
-//                        Image(uiImage: UIImage(data: icon.imageData)!)
+                ForEach(allNotes.grouped(by: \.dayStamp).reversed()) { notes in
+                    Section(header: Text(notes.groupID)) {
+                        ForEach(notes.group) { note in
+                            Text(note.text)
+                        }
                     }
                 }
             }
+            .listSectionSpacing(.compact)
+            .listStyle(.plain)
         }
         .padding()
     }

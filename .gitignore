@@ -13,7 +13,6 @@ DerivedData
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
-UserInterfaceState.xcuserstate
 *.xccheckout
 *.moved-aside
 *.xcuserstate
