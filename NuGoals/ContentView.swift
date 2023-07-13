@@ -2,20 +2,37 @@
 //  ContentView.swift
 //  NuGoals
 //
-//  Created by John on 26/06/2023.
-//
 
 import SwiftUI
 import SwiftData
 
 import Foundation
 
+struct ContentView1: View {
+    @State private var users = ["Paul", "Taylor", "Adele"]
+
+    var body: some View {
+        NavigationStack {
+            List {
+                ForEach(users, id: \.self) { user in
+                    Text(user)
+                }
+                .onMove(perform: move)
+            }
+        }
+    }
+
+    func move(from source: IndexSet, to destination: Int) {
+        users.move(fromOffsets: source, toOffset: destination)
+    }
+}
+
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext: ModelContext
 
     @Query(sort: \.sortOrder) var allGoals: [Goal]
     @Query(sort: \.sortOrder) var allAlarms: [Alarm]
-    @Query(sort: \.sortOrder) var allEpochs: [Epoch]
+    @Query(sort: \.startDate) var allEpochs: [Epoch]
     @Query(sort: \.creationDate) var allNotes: [Note]
     @Query(sort: \.sortOrder) var allIcons: [Icon]
 
