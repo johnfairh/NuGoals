@@ -6,7 +6,8 @@
 import Foundation
 import SwiftData
 
-/// This is the initial schema tweaked for SwiftData types with new fields and enums
+/// This is the initial schema tweaked for SwiftData types with new fields
+/// It would have lovely enums but SwiftData is fucking broken
 enum SwiftDataSchema1: VersionedSchema {
     static var versionIdentifier: String? = "SwiftDataSchema1"
 
@@ -16,12 +17,17 @@ enum SwiftDataSchema1: VersionedSchema {
 
     /// * rename fields with CoreData implementation prefixes
     /// * drop SectionOrder
+    /// * add Started and Abandoned
     @Model
     final class Goal {
-        @Attribute(originalName: "cdCompletionDate") var completionDate: Date
         @Attribute(originalName: "cdCreationDate") var creationDate: Date
+        var startedDate: Date = Date.distantFuture // fuck you swiftdata
+        var abandonedDate: Date = Date.distantFuture // fuck you swiftdata
+        @Attribute(originalName: "cdCompletionDate") var completionDate: Date
         @Attribute(originalName: "cdCurrentSteps") private var _currentSteps: Int
         @Attribute(originalName: "cdTotalSteps") private var _totalSteps: Int
+        var _isStarted: Bool = false // fuck you swiftdata
+        var _isAbandoned: Bool = false // fuck you swiftdata
         @Attribute(originalName: "cdIsFav") var isFav: Bool
         var name: String
         var sortOrder: Int64
@@ -31,16 +37,31 @@ enum SwiftDataSchema1: VersionedSchema {
         @Relationship(.cascade, inverse: \Note.goal) var notes: [Note]
 
         init(icon: Icon) {
-            completionDate = .distantFuture
             creationDate = .now
+            startedDate = .distantFuture
+            abandonedDate = .distantFuture
+            completionDate = .distantFuture
             _currentSteps = 0
             _totalSteps = 0
+            _isStarted = false
+            _isAbandoned = false
             isFav = false
             name = ""
             sortOrder = 0
             tag = nil
             self.icon = icon
             notes = []
+        }
+
+        fileprivate func migrateNewFields() {
+            _isAbandoned = false
+            if _currentSteps > 0 {
+                _isStarted = true
+                startedDate = creationDate
+            } else {
+                _isStarted = false
+                startedDate = .distantFuture
+            }
         }
     }
 
@@ -67,11 +88,12 @@ enum SwiftDataSchema1: VersionedSchema {
 
     /// * rename fields with CoreData implementation prefixes
     /// * drop SectionOrder
+    /// * can't intro enum field for type because SwiftData is broken...
     @Model
     final public class Alarm {
         @Attribute(originalName: "cdNextActiveDate") var nextActiveDate: Date
-        var cdType: Int16    // XXX
-        var cdWeekDay: Int16 // XXX turn into enum
+        @Attribute(originalName: "cdType") private var _type: Int16
+        @Attribute(originalName: "cdWeekDay") private var _weekDay: Int16
         var name: String
         var notificationUid: String?
         var sortOrder: Int64
@@ -81,8 +103,8 @@ enum SwiftDataSchema1: VersionedSchema {
 
         init(icon: Icon) {
             nextActiveDate = .distantFuture
-            cdType = 0
-            cdWeekDay = 1
+            _type = 0
+            _weekDay = 1
             name = ""
             notificationUid = nil
             sortOrder = 0
@@ -113,7 +135,7 @@ enum SwiftDataSchema1: VersionedSchema {
         }
     }
 
-    /// * no changes - want to link over
+    /// * no changes - want to link over but can't figure out how because of circular rel type requirements
     @Model
     final class Icon {
         var imageData: Data
@@ -130,6 +152,21 @@ enum SwiftDataSchema1: VersionedSchema {
             sortOrder = 0
             usingAlarms = []
             usingGoals = []
+        }
+    }
+
+    static func willMigrate(context: ModelContext) {
+    }
+
+    static func didMigrate(context: ModelContext) {
+        do {
+            let goals = try context.fetch(FetchDescriptor<Goal>())
+            for goal in goals {
+                goal.migrateNewFields()
+            }
+            try context.save()
+        } catch {
+            print("Migration error, good luck: \(error)") // XXX logging
         }
     }
 }

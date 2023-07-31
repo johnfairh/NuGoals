@@ -58,15 +58,20 @@ typealias Icon = CurrentSchema.Icon
 
 enum MigrationPlan: SchemaMigrationPlan {
     static var schemas: [any VersionedSchema.Type] {
-        [CoreDataSchema.self, SwiftDataSchema1.self]
+        [CoreDataSchema.self,
+         SwiftDataSchema1.self,
+        ]
     }
 
     static var stages: [MigrationStage] {
-        [migrateCoreDataToV1]
+        [migrateFromCoreData
+        ]
     }
 
-    static let migrateCoreDataToV1 = MigrationStage.lightweight(
+    static let migrateFromCoreData = MigrationStage.custom(
         fromVersion: CoreDataSchema.self,
-        toVersion: SwiftDataSchema1.self
+        toVersion: SwiftDataSchema1.self,
+        willMigrate: SwiftDataSchema1.willMigrate,
+        didMigrate: SwiftDataSchema1.didMigrate
     )
 }
