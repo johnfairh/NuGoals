@@ -3,8 +3,5 @@
 //  NuGoals
 //
 
-import SwiftData
-import Foundation
-
 extension Icon {
 }

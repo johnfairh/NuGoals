@@ -29,18 +29,7 @@ enum CoreDataSchema: VersionedSchema {
         @Relationship var icon: Icon
         @Relationship(.cascade, inverse: \Note.goal) var notes: [Note]
 
-        init() {
-            cdCompletionDate = .distantFuture
-            cdCreationDate = .now
-            cdCurrentSteps = 0
-            cdIsFav = false
-            cdTotalSteps = 0
-            name = ""
-            sectionOrder = "0"
-            sortOrder = 0
-            tag = nil
-            notes = []
-        }
+        init() {}
     }
 
     @Model
@@ -53,12 +42,7 @@ enum CoreDataSchema: VersionedSchema {
         @Relationship var defaultAlarm: Alarm?
         @Relationship var goal: Goal?
 
-        init() {
-            cdCreationDate = .now
-            dayStamp = ""
-            goalStatus = nil
-            text = ""
-        }
+        init() {}
     }
 
     @Model
@@ -74,15 +58,7 @@ enum CoreDataSchema: VersionedSchema {
         @Relationship(.cascade, inverse: \Note.defaultAlarm) var defaultNote: Note?
         @Relationship var icon: Icon
         
-        init() {
-            cdNextActiveDate = .distantFuture
-            cdType = 0
-            cdWeekDay = 1
-            name = ""
-            notificationUid = nil
-            sectionOrder = nil
-            sortOrder = 0
-        }
+        init() {}
     }
 
     @Model
@@ -95,15 +71,7 @@ enum CoreDataSchema: VersionedSchema {
         var minorVersion: Int64
         var sortOrder: Int64
 
-        init() {
-            cdEndDate = .distantFuture
-            cdLongName = ""
-            cdShortName = ""
-            cdStartDate = .now
-            majorVersion = 0
-            minorVersion = 0
-            sortOrder = 0
-        }
+        init() {}
     }
 
     @Model
@@ -115,13 +83,6 @@ enum CoreDataSchema: VersionedSchema {
         @Relationship(inverse: \Alarm.icon) var usingAlarms: [Alarm]
         @Relationship(inverse: \Goal.icon) var usingGoals: [Goal]
 
-        init(data: Data) {
-            imageData = data
-            isBuiltin = false
-            name = ""
-            sortOrder = 0
-            usingAlarms = []
-            usingGoals = []
-        }
+        init() {}
     }
 }

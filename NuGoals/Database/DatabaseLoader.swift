@@ -18,6 +18,7 @@ import Foundation
 //
 // If SwiftData can't init a container it doesn't seem to throw anything - just deletes the database and pretends
 // everything worked.
+// Update: if a *migration* fails then it does actually fail the init... no idea what state the DB is left in.
 
 enum DatabaseLoader {
     private static let modelName = "DataModel"

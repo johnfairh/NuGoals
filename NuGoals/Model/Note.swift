@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import SwiftData
 
 extension Note {
     /// Convert a `Date` to an 8-char datestamp
