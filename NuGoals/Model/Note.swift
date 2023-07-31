@@ -6,22 +6,6 @@
 import Foundation
 import SwiftData
 
-@Model
-final public class Note {
-    @Attribute(originalName: "cdCreationDate") var creationDate: Date
-    var goalStatus: String?
-    var text: String
-    @Relationship var activeAlarm: Alarm?
-    @Relationship var defaultAlarm: Alarm?
-    @Relationship var goal: Goal?
-
-    init() {
-        creationDate = .now
-        goalStatus = nil
-        text = ""
-    }
-}
-
 extension Note {
     /// Convert a `Date` to an 8-char datestamp
     var dayStamp: String {

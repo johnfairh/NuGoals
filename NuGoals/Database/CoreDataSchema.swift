@@ -6,6 +6,7 @@
 import Foundation
 import SwiftData
 
+/// This is the schema that comes out directly loading the latest Core Data version of the model
 enum CoreDataSchema: VersionedSchema {
     static var versionIdentifier: String? = "DataModel-10"
 

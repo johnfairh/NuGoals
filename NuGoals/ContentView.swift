@@ -77,7 +77,12 @@ struct ContentView: View {
                 ForEach(allNotes.grouped(by: \.dayStamp).reversed()) { notes in
                     Section(header: Text(notes.groupID)) {
                         ForEach(notes.group) { note in
-                            Text(note.text)
+                            HStack {
+                                Text(note.text)
+                                if let icon = note.goal?.icon {
+                                    Image(uiImage: UIImage(data: icon.imageData)!)
+                                }
+                            }
                         }
                     }
                 }

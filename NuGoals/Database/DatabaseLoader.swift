@@ -48,17 +48,17 @@ enum DatabaseLoader {
     }
 }
 
-enum CurrentSchema: VersionedSchema {
-    static var versionIdentifier: String? = "Current Schema"
+typealias CurrentSchema = SwiftDataSchema1
 
-    static var models: [any PersistentModel.Type] {
-        [Goal.self, Note.self, Alarm.self, Epoch.self, Icon.self]
-    }
-}
+typealias Goal = CurrentSchema.Goal
+typealias Note = CurrentSchema.Note
+typealias Alarm = CurrentSchema.Alarm
+typealias Epoch = CurrentSchema.Epoch
+typealias Icon = CurrentSchema.Icon
 
 enum MigrationPlan: SchemaMigrationPlan {
     static var schemas: [any VersionedSchema.Type] {
-        [CoreDataSchema.self, CurrentSchema.self]
+        [CoreDataSchema.self, SwiftDataSchema1.self]
     }
 
     static var stages: [MigrationStage] {
@@ -67,6 +67,6 @@ enum MigrationPlan: SchemaMigrationPlan {
 
     static let migrateCoreDataToV1 = MigrationStage.lightweight(
         fromVersion: CoreDataSchema.self,
-        toVersion: CurrentSchema.self
+        toVersion: SwiftDataSchema1.self
     )
 }
