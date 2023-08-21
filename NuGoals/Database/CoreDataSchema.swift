@@ -8,7 +8,7 @@ import SwiftData
 
 /// This is the schema that comes out directly loading the latest Core Data version of the model
 enum CoreDataSchema: VersionedSchema {
-    static var versionIdentifier: String? = "DataModel-10"
+    static var versionIdentifier = "DataModel-10"
 
     static var models: [any PersistentModel.Type] {
         [Goal.self, Note.self, Alarm.self, Epoch.self, Icon.self]
@@ -27,7 +27,7 @@ enum CoreDataSchema: VersionedSchema {
         var tag: String?
 
         @Relationship var icon: Icon
-        @Relationship(.cascade, inverse: \Note.goal) var notes: [Note]
+        @Relationship(deleteRule: .cascade, inverse: \Note.goal) var notes: [Note]
 
         init() {}
     }
@@ -54,8 +54,8 @@ enum CoreDataSchema: VersionedSchema {
         var notificationUid: String?
         @Transient var sectionOrder: String?
         var sortOrder: Int64
-        @Relationship(.cascade, inverse: \Note.activeAlarm) var activeNote: Note?
-        @Relationship(.cascade, inverse: \Note.defaultAlarm) var defaultNote: Note?
+        @Relationship(deleteRule: .cascade, inverse: \Note.activeAlarm) var activeNote: Note?
+        @Relationship(deleteRule: .cascade, inverse: \Note.defaultAlarm) var defaultNote: Note?
         @Relationship var icon: Icon
         
         init() {}

@@ -9,7 +9,7 @@ import SwiftData
 /// This is the initial schema tweaked for SwiftData types with new fields
 /// It would have lovely enums but SwiftData is fucking broken
 enum SwiftDataSchema1: VersionedSchema {
-    static var versionIdentifier: String? = "SwiftDataSchema1"
+    static var versionIdentifier = "SwiftDataSchema1"
 
     static var models: [any PersistentModel.Type] {
         [Goal.self, Note.self, Alarm.self, Epoch.self, Icon.self]
@@ -20,24 +20,37 @@ enum SwiftDataSchema1: VersionedSchema {
     /// * add Started and Abandoned
     @Model
     final class Goal {
-        @Attribute(originalName: "cdCreationDate") var creationDate: Date = Date.now
-        var startedDate: Date = Date.distantFuture
-        var abandonedDate: Date = Date.distantFuture
-        @Attribute(originalName: "cdCompletionDate") var completionDate: Date = Date.distantFuture
-        @Attribute(originalName: "cdCurrentSteps") private var _currentSteps: Int = 0
-        @Attribute(originalName: "cdTotalSteps") private var _totalSteps: Int = 0
-        var _isStarted: Bool = false
-        var _isAbandoned: Bool = false
-        @Attribute(originalName: "cdIsFav") var isFav: Bool = false
-        var name: String = ""
-        var sortOrder: Int64 = 0
-        var tag: String? = nil
+        @Attribute(originalName: "cdCreationDate") var creationDate: Date
+        var startedDate: Date
+        var abandonedDate: Date
+        @Attribute(originalName: "cdCompletionDate") var completionDate: Date
+        @Attribute(originalName: "cdCurrentSteps") private var _currentSteps: Int
+        @Attribute(originalName: "cdTotalSteps") private var _totalSteps: Int
+        var _isStarted: Bool
+        var _isAbandoned: Bool
+        @Attribute(originalName: "cdIsFav") var isFav: Bool
+        var name: String
+        var sortOrder: Int64
+        var tag: String?
 
         @Relationship var icon: Icon
-        @Relationship(.cascade, inverse: \Note.goal) var notes: [Note] = []
+        @Relationship(deleteRule: .cascade, inverse: \Note.goal) var notes: [Note]
 
         init(icon: Icon) {
+            creationDate = .now
+            startedDate = .distantFuture
+            abandonedDate = .distantFuture
+            completionDate = .distantFuture
+            _currentSteps = 0
+            _totalSteps = 0
+            _isStarted = false
+            _isAbandoned = false
+            isFav = false
+            name = ""
+            sortOrder = 0
+            tag = nil
             self.icon = icon
+            notes = []
         }
 
         fileprivate func migrateNewFields() {
@@ -56,14 +69,21 @@ enum SwiftDataSchema1: VersionedSchema {
     /// * drop DayStamp
     @Model
     final public class Note {
-        @Attribute(originalName: "cdCreationDate") var creationDate: Date = Date.now
-        var goalStatus: String? = nil
-        var text: String = ""
-        @Relationship var activeAlarm: Alarm? = nil
-        @Relationship var defaultAlarm: Alarm? = nil
-        @Relationship var goal: Goal? = nil
+        @Attribute(originalName: "cdCreationDate") var creationDate: Date
+        var goalStatus: String?
+        var text: String
+        @Relationship var activeAlarm: Alarm?
+        @Relationship var defaultAlarm: Alarm?
+        @Relationship var goal: Goal?
 
-        init() {}
+        init() {
+            creationDate = .now
+            goalStatus = nil
+            text = ""
+            activeAlarm = nil
+            defaultAlarm = nil
+            goal = nil
+        }
     }
 
     /// * rename fields with CoreData implementation prefixes
@@ -71,17 +91,25 @@ enum SwiftDataSchema1: VersionedSchema {
     /// * can't intro enum field for type because SwiftData is broken...
     @Model
     final public class Alarm {
-        @Attribute(originalName: "cdNextActiveDate") var nextActiveDate: Date = Date.distantFuture
-        @Attribute(originalName: "cdType") private var _type: Int16 = 0
-        @Attribute(originalName: "cdWeekDay") private var _weekDay: Int16 = 1
-        var name: String = ""
-        var notificationUid: String? = nil
-        var sortOrder: Int64 = 0
-        @Relationship(.cascade, inverse: \Note.activeAlarm) var activeNote: Note? = nil
-        @Relationship(.cascade, inverse: \Note.defaultAlarm) var defaultNote: Note? = nil
+        @Attribute(originalName: "cdNextActiveDate") var nextActiveDate: Date
+        @Attribute(originalName: "cdType") private var _type: Int16
+        @Attribute(originalName: "cdWeekDay") private var _weekDay: Int16
+        var name: String
+        var notificationUid: String?
+        var sortOrder: Int64
+        @Relationship(deleteRule: .cascade, inverse: \Note.activeAlarm) var activeNote: Note?
+        @Relationship(deleteRule: .cascade, inverse: \Note.defaultAlarm) var defaultNote: Note?
         @Relationship var icon: Icon
 
         init(icon: Icon) {
+            nextActiveDate = .distantFuture
+            _type = 0
+            _weekDay = 1
+            name = ""
+            notificationUid = nil
+            sortOrder = 0
+            activeNote = nil
+            defaultNote = nil
             self.icon = icon
         }
     }
@@ -90,28 +118,40 @@ enum SwiftDataSchema1: VersionedSchema {
     /// * drop SortOrder
     @Model
     final public class Epoch {
-        @Attribute(originalName: "cdStartDate") var startDate: Date = Date.now
-        @Attribute(originalName: "cdEndDate") var endDate: Date = Date.distantFuture
-        @Attribute(originalName: "cdShortName") var shortName: String = ""
-        @Attribute(originalName: "cdLongName") var longName: String = ""
-        var majorVersion: Int64 = 0
-        var minorVersion: Int64 = 0
+        @Attribute(originalName: "cdStartDate") var startDate: Date
+        @Attribute(originalName: "cdEndDate") var endDate: Date
+        @Attribute(originalName: "cdShortName") var shortName: String
+        @Attribute(originalName: "cdLongName") var longName: String
+        var majorVersion: Int64
+        var minorVersion: Int64
 
-        init() {}
+        init() {
+            startDate = .now
+            endDate = .distantFuture
+            shortName = ""
+            longName = ""
+            majorVersion = 0
+            minorVersion = 0
+        }
     }
 
     /// * no changes - want to link over but can't figure out how because of circular rel type requirements
     @Model
     final class Icon {
         var imageData: Data
-        var isBuiltin: Bool = false
-        var name: String = ""
-        var sortOrder: Int64 = 0
-        @Relationship(inverse: \Alarm.icon) var usingAlarms: [Alarm] = []
-        @Relationship(inverse: \Goal.icon) var usingGoals: [Goal] = []
+        var isBuiltin: Bool
+        var name: String
+        var sortOrder: Int64
+        @Relationship(inverse: \Alarm.icon) var usingAlarms: [Alarm]
+        @Relationship(inverse: \Goal.icon) var usingGoals: [Goal]
 
         init(data: Data) {
             imageData = data
+            isBuiltin = false
+            name = ""
+            sortOrder = 0
+            usingAlarms = []
+            usingGoals = []
         }
     }
 

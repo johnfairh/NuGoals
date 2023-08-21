@@ -30,11 +30,11 @@ struct ContentView1: View {
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext: ModelContext
 
-    @Query(sort: \.sortOrder) var allGoals: [Goal]
-    @Query(sort: \.sortOrder) var allAlarms: [Alarm]
-    @Query(sort: \.startDate) var allEpochs: [Epoch]
-    @Query(sort: \.creationDate) var allNotes: [Note]
-    @Query(sort: \.sortOrder) var allIcons: [Icon]
+    @Query(sort: \Goal.sortOrder) var allGoals: [Goal]
+    @Query(sort: \Alarm.sortOrder) var allAlarms: [Alarm]
+    @Query(sort: \Epoch.startDate) var allEpochs: [Epoch]
+    @Query(sort: \Note.creationDate) var allNotes: [Note]
+    @Query(sort: \Icon.sortOrder) var allIcons: [Icon]
 
     @State var containerText: String = ""
 
@@ -65,7 +65,7 @@ struct ContentView: View {
                 let container = modelContext.container
                 let config = container.configurations.first!
                 let idURL = config.id
-                let name = config.name ?? "(unnamed)"
+                let name = config.name
 
                 let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.absoluteString ?? "(none)"
                 containerText = "URL: \(idURL)\nname: \(name)\nappSupport: \(appSupport)"

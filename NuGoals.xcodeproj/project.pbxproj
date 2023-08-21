@@ -14,6 +14,7 @@
 		02535B352A5584F30045E890 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02535B342A5584F30045E890 /* Icon.swift */; };
 		026E6FDD2A5C066200DF96EB /* CoreDataSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026E6FDC2A5C066200DF96EB /* CoreDataSchema.swift */; };
 		026E6FDF2A5C27AA00DF96EB /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026E6FDE2A5C27AA00DF96EB /* Prefs.swift */; };
+		02B24FD52A93739300CC445E /* ImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B24FD42A93739300CC445E /* ImportExport.swift */; };
 		02CE85DE2A499511003E3559 /* NuGoalsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CE85DD2A499511003E3559 /* NuGoalsApp.swift */; };
 		02CE85E02A499511003E3559 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CE85DF2A499511003E3559 /* ContentView.swift */; };
 		02CE85E22A499513003E3559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CE85E12A499513003E3559 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		02535B342A5584F30045E890 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		026E6FDC2A5C066200DF96EB /* CoreDataSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSchema.swift; sourceTree = "<group>"; };
 		026E6FDE2A5C27AA00DF96EB /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
+		02B24FD42A93739300CC445E /* ImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExport.swift; sourceTree = "<group>"; };
 		02CE85DA2A499511003E3559 /* NuGoals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuGoals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02CE85DD2A499511003E3559 /* NuGoalsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuGoalsApp.swift; sourceTree = "<group>"; };
 		02CE85DF2A499511003E3559 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				02535B2A2A52E7420045E890 /* DatabaseLoader.swift */,
 				026E6FDC2A5C066200DF96EB /* CoreDataSchema.swift */,
 				02FA2C432A77B37F004CAD1B /* SwiftDataSchema1.swift */,
+				02B24FD42A93739300CC445E /* ImportExport.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				02535B332A5581650045E890 /* Note.swift in Sources */,
 				02CE85E02A499511003E3559 /* ContentView.swift in Sources */,
 				026E6FDD2A5C066200DF96EB /* CoreDataSchema.swift in Sources */,
+				02B24FD52A93739300CC445E /* ImportExport.swift in Sources */,
 				02CE85DE2A499511003E3559 /* NuGoalsApp.swift in Sources */,
 				02535B2B2A52E7420045E890 /* DatabaseLoader.swift in Sources */,
 				02535B352A5584F30045E890 /* Icon.swift in Sources */,

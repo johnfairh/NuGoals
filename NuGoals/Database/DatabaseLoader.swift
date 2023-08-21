@@ -23,11 +23,19 @@ import Foundation
 enum DatabaseLoader {
     private static let modelName = "DataModel"
 
+    // XXX just use the ffdone appgroup??
+    static let importExport = AppGroupImportExport(appGroup: "tml.NuGoals", filePrefix: modelName)
+
     static var modelContainer: ModelContainer {
+
+        // TBD not actually using the app group yet
+        // importExport.checkForImport()
+
         // Tweak the default filename settings to match the Core Data origins of all this
         let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         let modelURL = appSupportURL.appending(path: "\(modelName).sqlite")
         let modelConfiguration = ModelConfiguration(modelName, url: modelURL)
+        print("Using data model \(modelURL.path)")
 
         do {
             if !Prefs.coreDataMigrationDone {
